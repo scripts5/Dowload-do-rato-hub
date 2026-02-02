@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratto Hub - Download</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(30, 30, 30, 0.95);
+            border: 2px solid #ff3333;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 50px rgba(255, 51, 51, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff3333, #ff6666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px #ff3333); }
+            50% { filter: drop-shadow(0 0 20px #ff3333); }
+        }
+
+        .version {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #ff3333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid #ff3333;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 5px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff3333;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .info-box {
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid #ff3333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .info-box li:before {
+            content: "✓ ";
+            color: #ff3333;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            color: white;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 15px 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6);
+            background: linear-gradient(135deg, #ff4444, #dd0000);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-download {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .key-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px dashed #ff3333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .key-label {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .key-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff3333;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .key-display:hover {
+            color: #ff6666;
+            transform: scale(1.1);
+        }
+
+        .warning {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid orange;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: orange;
+            font-size: 14px;
+        }
+
+        .discord {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        .discord a {
+            color: #7289da;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .discord a:hover {
+            color: #5a6fb8;
+            text-decoration: underline;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff3333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            font-weight: bold;
+        }
+
+        .notification.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 51, 51, 0.05);
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 51, 51, 0.1);
+            border-color: #ff3333;
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            color: #ff3333;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .feature-desc {
+            color: #888;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">⚡ RATTO HUB</div>
+        <div class="version">Ultimate V3.0 - Mobile Edition</div>
+        
+        <h1>🚀 Download Grátis</h1>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">120+</div>
+                <div class="stat-label">Funções</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Grátis</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">⚡</div>
+                <div class="stat-label">Atualizado</div>
+            </div>
+        </div>
+
+        <div class="key-box">
+            <div class="key-label">🔑 KEY DO SCRIPT:</div>
+            <div class="key-display" onclick="copyKey()" title="Clique para copiar">
+                36737829
+            </div>
+        </div>
+
+        <button class="btn btn-download" onclick="downloadScript()">
+            💾 BAIXAR SCRIPT
+        </button>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">⚔️</div>
+                <div class="feature-title">Combate</div>
+                <div class="feature-desc">Kill Aura, Aimbot</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏃</div>
+                <div class="feature-title">Movimento</div>
+                <div class="feature-desc">Fly, Noclip, Speed</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👁️</div>
+                <div class="feature-title">Visual</div>
+                <div class="feature-desc">ESP Completo</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-title">Proteção</div>
+                <div class="feature-desc">Anti-Kick, Anti-Ban</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 Principais Recursos:</h3>
+            <ul>
+                <li>Kill Aura com range ajustável</li>
+                <li>Aimbot + Silent Aim</li>
+                <li>Fly + Noclip + Infinite Jump</li>
+                <li>ESP Completo (Players, Armas, Itens)</li>
+                <li>Get All Guns (M9, Remington, AK47)</li>
+                <li>Auto Farm, Auto Kill, Auto Arrest</li>
+                <li>Anti-Kick + Anti-Ban integrado</li>
+                <li>40+ Comandos de chat (!cmds)</li>
+                <li>GUI Moderna arrastável</li>
+                <li>Tudo em Português BR</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            ⚠️ <strong>AVISO:</strong> Use com moderação! Algumas funções podem ser detectadas pelo anti-cheat.
+        </div>
+
+        <div class="info-box">
+            <h3>🎮 Como Usar:</h3>
+            <ul>
+                <li>Clique em "BAIXAR SCRIPT"</li>
+                <li>Abra seu executor (Delta, Arceus, etc)</li>
+                <li>Carregue o arquivo baixado</li>
+                <li>Execute o script</li>
+                <li>Digite a KEY: 36737829</li>
+                <li>Aproveite!</li>
+            </ul>
+        </div>
+
+        <div class="discord">
+            💬 Discord: <a href="https://discord.gg/sGyVHq6m" target="_blank">discord.gg/sGyVHq6m</a><br>
+            👤 Criador: <strong>ravelitocove66</strong><br>
+            📅 Última Atualização: Fevereiro 2025<br>
+            © 2025 Ratto Hub - Todos os direitos reservados
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        ✅ Download iniciado!
+    </div>
+
+    <script>
+        // COLE O LINK DO SEU SCRIPT AQUI (Paste.ee, GitHub, etc)
+        const SCRIPT_URL = "https://paste.ee/r/SEU_CODIGO_AQUI";
+        
+        // Nome do arquivo que vai ser baixado
+        const FILENAME = "RattoHub_MEGA.lua";
+
+        function downloadScript() {
+            // Mostra notificação
+            showNotification("💾 Download iniciado!");
+
+            // Faz o download do script
+            fetch(SCRIPT_URL)
+                .then(response => response.text())
+                .then(scriptCode => {
+                    // Cria blob com o código
+                    const blob = new Blob([scriptCode], { type: 'text/plain' });
+                    const url = window.URL.createObjectURL(blob);
+                    
+                    // Cria link de download
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = FILENAME;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Limpa
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+
+                    // Notifica sucesso após 1 segundo
+                    setTimeout(() => {
+                        showNotification("✅ Download concluído!");
+                    }, 1000);
+                })
+                .catch(error => {
+                    showNotification("❌ Erro no download! Tente novamente.");
+                    console.error('Erro:', error);
+                });
+        }
+
+        function copyKey() {
+            const key = "36737829";
+            
+            // Copia para clipboard
+            const temp = document.createElement('textarea');
+            temp.value = key;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            showNotification("🔑 KEY copiada!");
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Download automático ao carregar (OPCIONAL - descomente se quiser)
+        // window.onload = function() {
+        //     setTimeout(downloadScript, 2000); // Baixa após 2 segundos
+        // }
+    </script>
+</body>
+</html>
